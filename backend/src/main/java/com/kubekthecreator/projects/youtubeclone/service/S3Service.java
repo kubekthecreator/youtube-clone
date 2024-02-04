@@ -3,7 +3,7 @@ package com.kubekthecreator.projects.youtubeclone.service;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -14,11 +14,15 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class S3Service implements FileService {
 
     public static final String BUCKET_NAME = "kubekthecreatorbucket";
     private final AmazonS3Client awsS3Client;
+
+    @Autowired
+    public S3Service(AmazonS3Client awsS3Client) {
+        this.awsS3Client = awsS3Client;
+    }
 
     @Override
     public String uploadFile(MultipartFile file) {
