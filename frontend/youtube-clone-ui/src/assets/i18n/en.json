@@ -1,0 +1,10 @@
+{
+	"demo": {
+		"heading": "test",
+		"text": "test 2"
+	},
+  "upload" : {
+    "dragAndDrop": "Drag and drop videos in this section (or) ",
+    "uploadVideo": "Upload Video"
+  }
+}
