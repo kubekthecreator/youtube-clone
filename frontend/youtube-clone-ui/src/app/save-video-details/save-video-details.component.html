@@ -1,0 +1,116 @@
+<div fxLayout="row wrap">
+  <div fxFlex="20%">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Test</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <div fxFlex="30%">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Add Video Metadata</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form [formGroup]="saveVideoDetailsForm" style="display: flex; flex-direction: column;">
+          <mat-form-field appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput [formControl]="title" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <input matInput [formControl]="description" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Video Status</mat-label>
+            <mat-select [formControl]="videoStatus">
+              <mat-option value="PUBLIC">PUBLIC</mat-option>
+              <mat-option value="PRIVATE">PRIVATE</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="example-chip-list">
+            <mat-label>Tags</mat-label>
+            <mat-chip-grid #chipGrid aria-label="Enter fruits">
+              @for (tag of tags; track tag) {
+                <mat-chip-row
+                  (removed)="remove(tag)"
+                  [editable]="true"
+                  (edited)="edit(tag, $event)"
+                  [aria-description]="'press enter to edit ' + tag">
+                  {{tag}}
+                  <button matChipRemove [attr.aria-label]="'remove ' + tag">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+              }
+              <input placeholder="Add tag..."
+                     [matChipInputFor]="chipGrid"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="addOnBlur"
+                     (matChipInputTokenEnd)="add($event)"/>
+            </mat-chip-grid>
+          </mat-form-field>
+          <div>
+            <label for="fileUpload">Upload Thumbnail:
+              <div class="custom-file">
+                <input type="file" class="file-input"
+                       [accept]="requiredFileType"
+                       id="fileUpload"
+                       (change)="onFileSelected($event)" #fileUpload>
+              </div>
+              <div class="file-upload">
+                <label for="fileUpload" class="custom-file">
+                  <ng-container *ngIf="!thumbnailUrl; else showThumbnail">
+                    <span>{{ selectedFileName || 'No thumbnail uploaded yet.' }}</span>
+                  </ng-container>
+                  <ng-template #showThumbnail>
+                    <img [src]="thumbnailUrl" alt="Uploaded thumbnail" class="thumbnail-image">
+                  </ng-template>
+                  <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                    <mat-icon>attach_file</mat-icon>
+                  </button>
+                </label>
+              </div>
+              <br />
+              <div *ngIf="fileSelected && !thumbnailUrl">
+                <hr>
+                <div>
+                  <button mat-raised-button color="primary" type="submit" (click)="onUpload()">Upload</button>
+                </div>
+              </div>
+              <br />
+              <div class="progress" *ngIf="uploadProgress" style="display: flex">
+                <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+                <mat-icon class="cancel-upload" (click)="cancelUpload()">delete_forever</mat-icon>
+              </div>
+            </label>
+          </div>
+          <br />
+          <div>
+            <button type="submit" mat-raised-button color="primary">Save</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div fxFlex="30%">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Video Player</mat-card-title>
+      </mat-card-header>
+
+      <!-- Tutaj wstaw swój odtwarzacz wideo -->
+    </mat-card>
+  </div>
+
+  <div fxFlex="20%">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Test</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>

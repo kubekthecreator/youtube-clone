@@ -1,0 +1,13 @@
+.container {
+  display: flex; /* or inline-flex */
+  flex-direction: row;
+}
+.file-input {
+  display: none;
+}
+.thumbnail-image {
+  max-width: 200px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+}
