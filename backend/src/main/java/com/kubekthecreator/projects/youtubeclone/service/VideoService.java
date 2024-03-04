@@ -46,4 +46,9 @@ public class VideoService {
         return videoRepository.findById(videoId)
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find video by id " + videoId));
     }
+
+    public VideoDto getVideoDetails(String videoId) {
+        Video savedVideo = getVideById(videoId);
+        return savedVideo.toDto();
+    }
 }

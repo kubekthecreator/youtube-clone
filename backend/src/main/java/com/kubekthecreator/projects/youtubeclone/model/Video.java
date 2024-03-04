@@ -1,9 +1,11 @@
 package com.kubekthecreator.projects.youtubeclone.model;
 
+import com.kubekthecreator.projects.youtubeclone.dto.VideoDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -28,4 +30,9 @@ public class Video {
     private Integer viewCount;
     private String thumbnailUrl;
     private List<Comment> commentList;
+
+    @Transient
+    public VideoDto toDto() {
+        return new VideoDto(this);
+    }
 }

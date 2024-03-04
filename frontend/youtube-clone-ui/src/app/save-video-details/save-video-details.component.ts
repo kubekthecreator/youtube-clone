@@ -8,6 +8,7 @@ import {VideoService} from "../video.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {finalize, Subscription, tap} from "rxjs";
 import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
+import {VideoDto} from "../model/video-dto";
 
 @Component({
   selector: 'app-save-video-details',
@@ -36,11 +37,16 @@ export class SaveVideoDetailsComponent implements OnInit {
   uploadProgress:number = 0;
   uploadSub: Subscription | undefined;
   thumbnailUrl: string = '';
+  videoUrl!: string;
 
   constructor(private activatedRoute: ActivatedRoute,
               private videoService: VideoService,
               private snackBar: MatSnackBar) {
     this.videoId = this.activatedRoute.snapshot.params['videoId'];
+    this.videoService.getVideo(this.videoId).subscribe(data=> {
+      this.videoUrl = data.videoUrl;
+      this.thumbnailUrl = data.thumbnailUrl;
+    })
     this.saveVideoDetailsForm = new FormGroup({
       title: this.title,
       description: this.description,
@@ -124,5 +130,20 @@ export class SaveVideoDetailsComponent implements OnInit {
   reset(): void {
     this.uploadProgress = 0;
     this.uploadSub = undefined;
+  }
+
+  saveVideo() {
+    const videoMetaData: VideoDto = {
+      "id": this.videoId,
+      "title": this.saveVideoDetailsForm.get('title')?.value,
+      "description": this.saveVideoDetailsForm.get('description')?.value,
+      "tags": this.tags,
+      "videoUrl": this.videoUrl,
+      "videoStatus": this.saveVideoDetailsForm.get('videoStatus')?.value,
+      "thumbnailUrl": this.thumbnailUrl
+    }
+    this.videoService.saveVideo(videoMetaData).subscribe(data=> {
+      this.snackBar.open("Video Metadata updated successfully", "OK")
+    });
   }
 }

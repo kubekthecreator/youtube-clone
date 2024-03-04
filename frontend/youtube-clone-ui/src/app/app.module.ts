@@ -30,13 +30,16 @@ import {VgOverlayPlayModule} from "@videogular/ngx-videogular/overlay-play";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {MatCardModule} from "@angular/material/card";
+import { VideoPlayerComponent } from './video-player/video-player.component';
+import { AuthConfigModule } from './auth/auth-config.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     UploadVideoComponent,
     HeaderComponent,
-    SaveVideoDetailsComponent
+    SaveVideoDetailsComponent,
+    VideoPlayerComponent
   ],
   imports: [
     BrowserModule,
@@ -77,6 +80,7 @@ import {MatCardModule} from "@angular/material/card";
     MatMiniFabButton,
     MatProgressBar,
     MatCardModule,
+    AuthConfigModule,
   ],
   providers: [
     provideClientHydration(),

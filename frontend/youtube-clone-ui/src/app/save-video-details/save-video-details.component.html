@@ -89,7 +89,7 @@
           </div>
           <br />
           <div>
-            <button type="submit" mat-raised-button color="primary">Save</button>
+            <button type="submit" mat-raised-button color="primary" (click)="saveVideo()">Save</button>
           </div>
         </form>
       </mat-card-content>
@@ -102,7 +102,9 @@
         <mat-card-title>Video Player</mat-card-title>
       </mat-card-header>
 
-      <!-- Tutaj wstaw swój odtwarzacz wideo -->
+      <mat-card-content>
+        <app-video-player [videoUrl] = "videoUrl"></app-video-player>
+      </mat-card-content>
     </mat-card>
   </div>
 
