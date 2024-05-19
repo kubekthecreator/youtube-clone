@@ -1,13 +1,16 @@
 com\kubekthecreator\projects\youtubeclone\config\WebMvcConfig.class
 com\kubekthecreator\projects\youtubeclone\controller\VideoController.class
+com\kubekthecreator\projects\youtubeclone\dto\UploadVideoResponse.class
 com\kubekthecreator\projects\youtubeclone\service\VideoService.class
 com\kubekthecreator\projects\youtubeclone\dto\VideoDto.class
 com\kubekthecreator\projects\youtubeclone\YoutubeCloneApplication.class
 com\kubekthecreator\projects\youtubeclone\model\VideoStatus.class
 com\kubekthecreator\projects\youtubeclone\model\User.class
 com\kubekthecreator\projects\youtubeclone\service\FileService.class
+com\kubekthecreator\projects\youtubeclone\config\AudienceValidator.class
 com\kubekthecreator\projects\youtubeclone\model\Video.class
 com\kubekthecreator\projects\youtubeclone\service\S3Config.class
+com\kubekthecreator\projects\youtubeclone\config\SecurityConfig.class
 com\kubekthecreator\projects\youtubeclone\model\Comment.class
 com\kubekthecreator\projects\youtubeclone\service\S3Service.class
 com\kubekthecreator\projects\youtubeclone\repository\VideoRepository.class

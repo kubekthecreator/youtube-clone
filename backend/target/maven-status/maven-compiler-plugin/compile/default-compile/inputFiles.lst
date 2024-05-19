@@ -1,13 +1,16 @@
 C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\model\User.java
+C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\dto\UploadVideoResponse.java
 C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\service\FileService.java
 C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\config\WebMvcConfig.java
 C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\repository\VideoRepository.java
 C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\service\S3Service.java
+C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\config\AudienceValidator.java
 C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\model\Comment.java
 C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\service\S3Config.java
 C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\service\VideoService.java
 C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\dto\VideoDto.java
 C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\YoutubeCloneApplication.java
+C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\config\SecurityConfig.java
 C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\model\Video.java
 C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\controller\VideoController.java
 C:\Users\kubek\Desktop\stary komp\java projects\youtube-clone\youtube-clone\backend\src\main\java\com\kubekthecreator\projects\youtubeclone\model\VideoStatus.java

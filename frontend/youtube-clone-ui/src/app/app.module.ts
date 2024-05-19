@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {UploadVideoComponent} from './upload-video/upload-video.component';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClient, provideHttpClient, withInterceptors} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxFileDropModule} from 'ngx-file-drop';
 import {TranslateCompiler, TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -30,8 +30,8 @@ import {VgOverlayPlayModule} from "@videogular/ngx-videogular/overlay-play";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {MatCardModule} from "@angular/material/card";
-import { VideoPlayerComponent } from './video-player/video-player.component';
-import { AuthConfigModule } from './auth/auth-config.module';
+import {VideoPlayerComponent} from './video-player/video-player.component';
+import {authInterceptor, provideAuth} from "angular-auth-oidc-client";
 
 @NgModule({
   declarations: [
@@ -45,7 +45,6 @@ import { AuthConfigModule } from './auth/auth-config.module';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
     NgxFileDropModule,
     TranslateModule.forRoot({
       loader: {
@@ -80,11 +79,26 @@ import { AuthConfigModule } from './auth/auth-config.module';
     MatMiniFabButton,
     MatProgressBar,
     MatCardModule,
-    AuthConfigModule,
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideHttpClient(withInterceptors([authInterceptor()])),
+    provideAuth({
+      config: {
+        authority: 'https://dev-3cp642wab605pwuc.us.auth0.com',
+        redirectUrl: 'http://localhost:4200',
+        clientId: 'YVjfzIjGl3Be1EvjcGnuLnJSKwv8zlNU',
+        scope: 'openid profile offline_access',
+        responseType: 'code',
+        silentRenew: true,
+        useRefreshToken: true,
+        secureRoutes: ['http://localhost:8080/'],
+        customParamsAuthRequest: {
+          audience: 'http://localhost:8080'
+        },
+      },
+    }),
   ],
   bootstrap: [AppComponent]
 })

@@ -13,12 +13,11 @@ import {VideoDto} from "../model/video-dto";
 @Component({
   selector: 'app-save-video-details',
   templateUrl: './save-video-details.component.html',
-  styleUrl: './save-video-details.component.css'
+  styleUrls: ['./save-video-details.component.css']
 })
 export class SaveVideoDetailsComponent implements OnInit {
 
-  @Input()
-  requiredFileType:string = '';
+  @Input() requiredFileType: string = '';
 
   saveVideoDetailsForm: FormGroup;
   title: FormControl = new FormControl('');
@@ -34,27 +33,38 @@ export class SaveVideoDetailsComponent implements OnInit {
   selectedFileName: string = '';
   videoId: string = '';
   fileSelected: boolean = false;
-  uploadProgress:number = 0;
+  uploadProgress: number = 0;
   uploadSub: Subscription | undefined;
   thumbnailUrl: string = '';
   videoUrl!: string;
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private videoService: VideoService,
-              private snackBar: MatSnackBar) {
-    this.videoId = this.activatedRoute.snapshot.params['videoId'];
-    this.videoService.getVideo(this.videoId).subscribe(data=> {
-      this.videoUrl = data.videoUrl;
-      this.thumbnailUrl = data.thumbnailUrl;
-    })
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private videoService: VideoService,
+    private snackBar: MatSnackBar
+  ) {
     this.saveVideoDetailsForm = new FormGroup({
       title: this.title,
       description: this.description,
       videoStatus: this.videoStatus,
-    })
+    });
+
+    this.videoId = this.activatedRoute.snapshot.params['videoId'];
+    if (this.videoId) {
+      this.videoService.getVideo(this.videoId).subscribe(data => {
+        this.videoUrl = data.videoUrl;
+        this.thumbnailUrl = data.thumbnailUrl;
+        this.saveVideoDetailsForm.setValue({
+          title: data.title || '',
+          description: data.description || '',
+          videoStatus: data.videoStatus || ''
+        });
+        this.tags = data.tags || [];
+      });
+    }
   }
-  ngOnInit(): void {
-  }
+
+  ngOnInit(): void {}
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -66,29 +76,23 @@ export class SaveVideoDetailsComponent implements OnInit {
 
   remove(tag: string): void {
     const index = this.tags.indexOf(tag);
-
     if (index >= 0) {
       this.tags.splice(index, 1);
-
       this.announcer.announce(`Removed ${tag}`);
     }
   }
 
   edit(tag: string, event: MatChipEditedEvent): void {
     const value = event.value.trim();
-
-    // Remove tag if it no longer has a value
     if (!value) {
       this.remove(tag);
       return;
     }
-
-    // Edit existing tag
     const index = this.tags.indexOf(tag);
     if (index >= 0) {
       this.tags[index] = value;
     }
-}
+  }
 
   onFileSelected(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
@@ -96,8 +100,8 @@ export class SaveVideoDetailsComponent implements OnInit {
       this.selectedFile = inputElement.files[0];
       this.selectedFileName = this.selectedFile.name;
       this.thumbnailUrl = '';
+      this.fileSelected = true;
     }
-    this.fileSelected = true;
   }
 
   onUpload(): void {
@@ -130,20 +134,22 @@ export class SaveVideoDetailsComponent implements OnInit {
   reset(): void {
     this.uploadProgress = 0;
     this.uploadSub = undefined;
+    this.fileSelected = false;
+    this.selectedFileName = '';
   }
 
-  saveVideo() {
+  saveVideo(): void {
     const videoMetaData: VideoDto = {
-      "id": this.videoId,
-      "title": this.saveVideoDetailsForm.get('title')?.value,
-      "description": this.saveVideoDetailsForm.get('description')?.value,
-      "tags": this.tags,
-      "videoUrl": this.videoUrl,
-      "videoStatus": this.saveVideoDetailsForm.get('videoStatus')?.value,
-      "thumbnailUrl": this.thumbnailUrl
-    }
-    this.videoService.saveVideo(videoMetaData).subscribe(data=> {
-      this.snackBar.open("Video Metadata updated successfully", "OK")
+      id: this.videoId,
+      title: this.saveVideoDetailsForm.get('title')?.value,
+      description: this.saveVideoDetailsForm.get('description')?.value,
+      tags: this.tags,
+      videoUrl: this.videoUrl,
+      videoStatus: this.saveVideoDetailsForm.get('videoStatus')?.value,
+      thumbnailUrl: this.thumbnailUrl
+    };
+    this.videoService.saveVideo(videoMetaData).subscribe(() => {
+      this.snackBar.open("Video Metadata updated successfully", "OK");
     });
   }
 }
