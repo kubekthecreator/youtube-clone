@@ -103,7 +103,7 @@
       </mat-card-header>
 
       <mat-card-content>
-        <app-video-player [videoUrl] = "videoUrl"></app-video-player>
+        <app-video-player *ngIf="videoAvailable" [videoUrl] = "videoUrl"></app-video-player>
       </mat-card-content>
     </mat-card>
   </div>

@@ -32,6 +32,7 @@ import {MatProgressBar} from "@angular/material/progress-bar";
 import {MatCardModule} from "@angular/material/card";
 import {VideoPlayerComponent} from './video-player/video-player.component';
 import {authInterceptor, provideAuth} from "angular-auth-oidc-client";
+import { VideoDetailComponent } from './video-detail/video-detail.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {authInterceptor, provideAuth} from "angular-auth-oidc-client";
     UploadVideoComponent,
     HeaderComponent,
     SaveVideoDetailsComponent,
-    VideoPlayerComponent
+    VideoPlayerComponent,
+    VideoDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +89,8 @@ import {authInterceptor, provideAuth} from "angular-auth-oidc-client";
     provideAuth({
       config: {
         authority: 'https://dev-3cp642wab605pwuc.us.auth0.com',
-        redirectUrl: 'http://localhost:4200',
+        redirectUrl: window.location.origin,
+        postLogoutRedirectUri: window.location.origin,
         clientId: 'YVjfzIjGl3Be1EvjcGnuLnJSKwv8zlNU',
         scope: 'openid profile offline_access',
         responseType: 'code',

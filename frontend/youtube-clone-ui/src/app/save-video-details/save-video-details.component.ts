@@ -37,6 +37,7 @@ export class SaveVideoDetailsComponent implements OnInit {
   uploadSub: Subscription | undefined;
   thumbnailUrl: string = '';
   videoUrl!: string;
+  videoAvailable!: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -53,6 +54,7 @@ export class SaveVideoDetailsComponent implements OnInit {
     if (this.videoId) {
       this.videoService.getVideo(this.videoId).subscribe(data => {
         this.videoUrl = data.videoUrl;
+        this.videoAvailable = true;
         this.thumbnailUrl = data.thumbnailUrl;
         this.saveVideoDetailsForm.setValue({
           title: data.title || '',
