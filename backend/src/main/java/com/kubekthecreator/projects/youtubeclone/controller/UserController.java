@@ -2,6 +2,7 @@ package com.kubekthecreator.projects.youtubeclone.controller;
 
 import com.kubekthecreator.projects.youtubeclone.service.UserRegistrationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,13 @@ public class UserController {
     private final UserRegistrationService userRegistrationService;
 
     @GetMapping("/register")
-    public String register(Authentication authentication) {
-        Jwt jwt = (Jwt) authentication.getPrincipal();
-        userRegistrationService.registerUser(jwt.getTokenValue());
-        return authentication.getName();
+    public ResponseEntity<String> register(Authentication authentication) {
+        try {
+            Jwt jwt = (Jwt) authentication.getPrincipal();
+            userRegistrationService.registerUser(jwt.getTokenValue());
+            return ResponseEntity.ok(authentication.getName());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error occurred during user registration");
+        }
     }
 }
