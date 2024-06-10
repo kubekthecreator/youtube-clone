@@ -92,7 +92,7 @@ import { VideoDetailComponent } from './video-detail/video-detail.component';
         redirectUrl: window.location.origin,
         postLogoutRedirectUri: window.location.origin,
         clientId: 'YVjfzIjGl3Be1EvjcGnuLnJSKwv8zlNU',
-        scope: 'openid profile offline_access',
+        scope: 'openid profile offline_access email',
         responseType: 'code',
         silentRenew: true,
         useRefreshToken: true,
