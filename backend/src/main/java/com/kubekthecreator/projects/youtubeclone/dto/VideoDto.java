@@ -4,9 +4,7 @@ package com.kubekthecreator.projects.youtubeclone.dto;
 import com.kubekthecreator.projects.youtubeclone.model.Comment;
 import com.kubekthecreator.projects.youtubeclone.model.Video;
 import com.kubekthecreator.projects.youtubeclone.model.VideoStatus;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
@@ -15,6 +13,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class VideoDto {
     private String id;
     private String title;
@@ -40,7 +40,7 @@ public class VideoDto {
         this.likes = video.getLikes().get();
         this.dislikes = video.getDislikes().get();
         this.userId = video.getUserId();
-        this.viewCount = video.getViewCount();
+        this.viewCount = video.getViewCount().get();
         this.commentList = video.getCommentList();
     }
 }

@@ -36,7 +36,7 @@ public class UserInfoDto {
         user.setSub(this.sub);
         user.setSubscribedToUsers(new HashSet<>());
         user.setSubscribes(new HashSet<>());
-        user.setVideoHistory(new ArrayList<>());
+        user.setVideoHistory(new HashSet<>());
         user.setLikedVideos(new HashSet<>());
         user.setDislikedVideos(new HashSet<>());
         return user;

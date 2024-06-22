@@ -1,5 +1,6 @@
 package com.kubekthecreator.projects.youtubeclone.model;
 
+import com.kubekthecreator.projects.youtubeclone.dto.CommentDto;
 import com.kubekthecreator.projects.youtubeclone.dto.VideoDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Document(value = "Video")
@@ -23,14 +25,14 @@ public class Video {
     private String title;
     private String description;
     private String userId;
-    private AtomicInteger likes;
-    private AtomicInteger dislikes;
+    private AtomicInteger likes = new AtomicInteger(0);
+    private AtomicInteger dislikes = new AtomicInteger(0);
     private Set<String> tags;
     private String videoUrl;
     private VideoStatus videoStatus;
-    private Integer viewCount;
+    private AtomicInteger viewCount = new AtomicInteger(0);;
     private String thumbnailUrl;
-    private List<Comment> commentList;
+    private List<Comment> commentList = new CopyOnWriteArrayList<>();
 
     @Transient
     public VideoDto toDto() {
@@ -67,8 +69,18 @@ public class Video {
         this.setTags(videoDto.getTags());
         this.setVideoUrl(videoDto.getVideoUrl());
         this.setVideoStatus(videoDto.getVideoStatus());
-        this.setViewCount(videoDto.getViewCount());
+        this.setViewCount(new AtomicInteger(videoDto.getViewCount()));
         this.setThumbnailUrl(videoDto.getThumbnailUrl());
         this.setCommentList(videoDto.getCommentList());
+    }
+
+    public void incrementViewCount() {
+        if (this.viewCount.get() > 0) {
+            this.viewCount.incrementAndGet();
+        }
+    }
+
+    public void addComment(CommentDto commentDto) {
+        commentList.add(commentDto.asEntity());
     }
 }
