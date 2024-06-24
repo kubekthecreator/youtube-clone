@@ -1,0 +1,32 @@
+<div class="comment-section">
+  <form [formGroup]="commentsForm" class="comment-form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Leave a comment</mat-label>
+      <textarea matInput formControlName="comment" placeholder="Share your thoughts" rows="3"></textarea>
+    </mat-form-field>
+    <div class="form-actions">
+      <button mat-stroked-button (click)="cancelComment()">CANCEL</button>
+      <button mat-raised-button color="primary" (click)="postComment()" [disabled]="!commentsForm.valid">COMMENT</button>
+    </div>
+  </form>
+
+  <mat-divider class="comment-divider"></mat-divider>
+
+  <div class="comments-list">
+    <div *ngFor="let comment of commentsDto" class="comment">
+      <div class="comment-header">
+        <div class="user-info">
+          <div class="user-avatar"></div>
+          <div class="user-details">
+            <a class="user-name" routerLink="">User</a>
+            <span class="comment-date">1 Month Ago</span>
+          </div>
+        </div>
+        <button mat-icon-button class="delete-button" (click)="deleteComment(comment)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <p class="comment-text">{{comment.text}}</p>
+    </div>
+  </div>
+</div>

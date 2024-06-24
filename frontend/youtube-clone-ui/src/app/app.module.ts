@@ -19,10 +19,10 @@ import {SaveVideoDetailsComponent} from './save-video-details/save-video-details
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
-import {MatOptionModule} from "@angular/material/core";
+import {MatLine, MatOptionModule} from "@angular/material/core";
 import {MatInputModule} from "@angular/material/input";
 import {FlexLayoutServerModule} from "@angular/flex-layout/server";
-import {MatChipGrid, MatChipInput, MatChipRow} from "@angular/material/chips";
+import {MatChip, MatChipGrid, MatChipInput, MatChipListbox, MatChipRow} from "@angular/material/chips";
 import {VgBufferingModule} from "@videogular/ngx-videogular/buffering";
 import {VgCoreModule} from "@videogular/ngx-videogular/core";
 import {VgControlsModule} from "@videogular/ngx-videogular/controls";
@@ -33,6 +33,19 @@ import {MatCardModule} from "@angular/material/card";
 import {VideoPlayerComponent} from './video-player/video-player.component';
 import {authInterceptor, provideAuth} from "angular-auth-oidc-client";
 import { VideoDetailComponent } from './video-detail/video-detail.component';
+import { HomeComponent } from './home/home.component';
+import { HistoryComponent } from './history/history.component';
+import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
+import { LikedVideosComponent } from './liked-videos/liked-videos.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import {MatSidenav, MatSidenavContainer} from "@angular/material/sidenav";
+import {MatList, MatListItem, MatListItemIcon, MatNavList} from "@angular/material/list";
+import { FeaturedComponent } from './featured/featured.component';
+import { VideoCardComponent } from './video-card/video-card.component';
+import {MatDivider} from "@angular/material/divider";
+import { CallbackComponent } from './callback/callback.component';
+import { CommentsComponent } from './comments/comments.component';
+import {MatMenu, MatMenuItem} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -41,7 +54,16 @@ import { VideoDetailComponent } from './video-detail/video-detail.component';
     HeaderComponent,
     SaveVideoDetailsComponent,
     VideoPlayerComponent,
-    VideoDetailComponent
+    VideoDetailComponent,
+    HomeComponent,
+    HistoryComponent,
+    SubscriptionsComponent,
+    LikedVideosComponent,
+    SidebarComponent,
+    FeaturedComponent,
+    VideoCardComponent,
+    CallbackComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +103,18 @@ import { VideoDetailComponent } from './video-detail/video-detail.component';
     MatMiniFabButton,
     MatProgressBar,
     MatCardModule,
+    MatSidenavContainer,
+    MatSidenav,
+    MatList,
+    MatListItem,
+    MatNavList,
+    MatLine,
+    MatListItemIcon,
+    MatDivider,
+    MatChip,
+    MatChipListbox,
+    MatMenu,
+    MatMenuItem,
   ],
   providers: [
     provideClientHydration(),

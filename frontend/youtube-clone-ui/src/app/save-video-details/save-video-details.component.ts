@@ -38,6 +38,10 @@ export class SaveVideoDetailsComponent implements OnInit {
   thumbnailUrl: string = '';
   videoUrl!: string;
   videoAvailable!: boolean;
+  likes!: number;
+  dislikes!: number;
+  userId!: string;
+  viewCount!: number;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -148,7 +152,11 @@ export class SaveVideoDetailsComponent implements OnInit {
       tags: this.tags,
       videoUrl: this.videoUrl,
       videoStatus: this.saveVideoDetailsForm.get('videoStatus')?.value,
-      thumbnailUrl: this.thumbnailUrl
+      thumbnailUrl: this.thumbnailUrl,
+      likes: this.likes,
+      dislikes: this.dislikes,
+      viewCount: this.viewCount,
+      userId: this.userId
     };
     this.videoService.saveVideo(videoMetaData).subscribe(() => {
       this.snackBar.open("Video Metadata updated successfully", "OK");

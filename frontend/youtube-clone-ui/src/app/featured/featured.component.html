@@ -1,0 +1,13 @@
+<div class="featured-container">
+  <h2 class="featured-title">Featured Videos</h2>
+
+  <div *ngIf="isLoading" class="loading-spinner"></div>
+
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <div *ngIf="!isLoading && !errorMessage" class="video-grid">
+    <div class="video-card" *ngFor="let featuredVideo of featuredVideos">
+      <app-video-card [video]="featuredVideo"></app-video-card>
+    </div>
+  </div>
+</div>

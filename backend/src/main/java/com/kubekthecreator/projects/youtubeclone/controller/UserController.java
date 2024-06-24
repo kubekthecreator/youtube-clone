@@ -1,6 +1,5 @@
 package com.kubekthecreator.projects.youtubeclone.controller;
 
-import com.kubekthecreator.projects.youtubeclone.model.User;
 import com.kubekthecreator.projects.youtubeclone.service.UserRegistrationService;
 import com.kubekthecreator.projects.youtubeclone.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.Set;
 
@@ -21,15 +21,13 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/register")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> register(Authentication authentication) {
-        try {
-            Jwt jwt = (Jwt) authentication.getPrincipal();
-            userRegistrationService.registerUser(jwt.getTokenValue());
-            return ResponseEntity.ok(authentication.getName());
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error occurred during user registration");
-        }
+    public Mono<ResponseEntity<String>> register(Authentication authentication) {
+        return Mono.justOrEmpty(authentication.getPrincipal())
+                .cast(Jwt.class)
+                .flatMap(jwt -> userRegistrationService.registerUser(jwt.getTokenValue()))
+                .map(ResponseEntity::ok)
+                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("Error occurred during user registration")));
     }
 
     @PostMapping("/subscribe/{userId}")
